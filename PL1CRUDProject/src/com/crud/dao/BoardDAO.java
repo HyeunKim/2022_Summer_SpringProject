@@ -14,23 +14,35 @@ public class BoardDAO {
 		Connection con=null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			con=DriverManager.getConnection("jdbc:mysql://walab.handong.edu:3306/camp4","camp4","bZrmMpQqBclWX9Mh");
+			con=DriverManager.getConnection("jdbc:mysql://db4free.net:3306/hyeeun_db","hyeeun","Meme0110");
+//			con=DriverManager.getConnection("jdbc:mysql://walab.handong.edu:3306/camp4","camp4","bZrmMpQqBclWX9Mh");
 		}catch(Exception e){System.out.println(e);}
 		return con;
 	}
+	
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
 
-	private final String KHE_BOARD_INSERT = "insert into KHE_BOARD(title, writer, content, category) values (?,?,?,?)";
-	private final String KHE_BOARD_UPDATE = "update KHE_BOARD set title=?, writer=?, content=?, category=? where seq=?";
-	private final String KHE_BOARD_DELETE = "delete from KHE_BOARD  where seq=?";
-	private final String KHE_BOARD_GET = "select * from KHE_BOARD  where seq=?";
-	private final String KHE_BOARD_LIST = "select * from KHE_BOARD order by seq desc";
+	private final String KHE_BOARD_INSERT = "insert into BOARD(title, writer, content, category) values (?,?,?,?)";
+	private final String KHE_BOARD_UPDATE = "update BOARD set title=?, writer=?, content=?, category=? where seq=?";
+	private final String KHE_BOARD_DELETE = "delete from BOARD  where seq=?";
+	private final String KHE_BOARD_GET = "select * from BOARD  where seq=?";
+	private final String KHE_BOARD_LIST = "select * from BOARD order by seq desc";
+	
+//	private final String KHE_BOARD_INSERT = "insert into KHE_BOARD(title, writer, content, category) values (?,?,?,?)";
+//	private final String KHE_BOARD_UPDATE = "update KHE_BOARD set title=?, writer=?, content=?, category=? where seq=?";
+//	private final String KHE_BOARD_DELETE = "delete from KHE_BOARD  where seq=?";
+//	private final String KHE_BOARD_GET = "select * from KHE_BOARD  where seq=?";
+//	private final String KHE_BOARD_LIST = "select * from KHE_BOARD order by seq desc";
 
 	public int insertBoard(BoardVO vo) {
 		System.out.println("===> JDBC로 insertBoard() 기능 처리");
 		try {
 			Connection con = getConnection();
+			if(con != null)
+				System.out.println("DB 연결 !!!!!!!!!!");
+			else
+				System.out.println("DB 연결 실패......");
 			stmt = con.prepareStatement(KHE_BOARD_INSERT);
 			stmt.setString(1, vo.getTitle());
 			stmt.setString(2, vo.getWriter());
